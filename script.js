@@ -65,52 +65,25 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-/* ===================================================================
-ALTERNATIVE VERSION USING 'ELSE IF' (Without needing 'return' inside each block)
-===================================================================
+const buttons = document.querySelectorAll("button");
+const scoreDiv = document.querySelector("#score");
+const message = document.querySelector("#message");
 
-function playRound(humanChoice, computerChoice) {
-    if (humanChoice === "ROCK" && computerChoice === "SCISSORS") {
-        humanScore++;
-        console.log("You win! Rock beats Scissors");
-        console.log(`Score -> Human ${humanScore} - Computer ${computerScore}`);
-    } else if (humanChoice === "SCISSORS" && computerChoice === "ROCK") {
-        computerScore++;
-        console.log("You lost! Rock beats Scissors");
-        console.log(`Score -> Human ${humanScore} - Computer ${computerScore}`);
-    } else if (humanChoice === "PAPER" && computerChoice === "ROCK") {
-        humanScore++;
-        console.log("You win! Paper beats Rock");
-        console.log(`Score -> Human ${humanScore} - Computer ${computerScore}`);
-    } else if (humanChoice === "SCISSORS" && computerChoice === "PAPER") {
-        humanScore++;
-        console.log("You win! Scissors beat Paper");
-        console.log(`Score -> Human ${humanScore} - Computer ${computerScore}`);
-    } else if (humanChoice === "ROCK" && computerChoice === "PAPER") {
-        computerScore++;
-        console.log("You lost! Paper beats Rock");
-        console.log(`Score -> Human ${humanScore} - Computer ${computerScore}`);
-    } else if (humanChoice === "PAPER" && computerChoice === "SCISSORS") {
-        computerScore++;
-        console.log("You lost! Scissors beat Paper");
-        console.log(`Score -> Human ${humanScore} - Computer ${computerScore}`);
-    } else if (humanChoice === computerChoice) {
-        console.log("It's a tie!");
-    }
-}
-*/
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        let humanChoice = button.value.toUpperCase();
+        let computerChoice = getComputerChoice();
 
-while (humanScore < 5 && computerScore < 5) {
-    // Added .toUpperCase() at the end to automatically fix lowercase inputs like "rock" to "ROCK"
-    let humanSelection = prompt("Choose between ROCK, SCISSORS, PAPER:").toUpperCase(); // Ask the user for their move and store it in 'humanSelection' variable
-    let computerSelection = getComputerChoice(); // Store result inside 'computerSelection' variable 
-    playRound(humanSelection, computerSelection); // Compare both previous variables (humanSelection and computerSelection) and determine winner
-}
-// After playRound finishes, the computer jumps back to the top of the 'while' to check the scores again.
-// If someone reached 5, the loop stops immediately
+        playRound(humanChoice, computerChoice);
 
-if (humanScore === 5) { // Check if the human reached the winning score
-    console.log("CONGRATULATIONS! You won the entire game! 🏆");
-} else { // If the computer reached 5 points
-    console.log("GAME OVER! The computer won the game! 🤖");
-}
+        scoreDiv.textContent = `Human: ${humanScore} - Computer: ${computerScore}`;   
+
+        if (humanScore === 5) {
+            message.textContent = "You win!";
+            buttons.forEach((btn) => btn.disabled = true);
+        } else if (computerScore === 5) {
+            message.textContent = "You lost!";
+            buttons.forEach((btn) => btn.disabled = true);
+        }
+    });
+});
