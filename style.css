@@ -1,0 +1,30 @@
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+button {
+    padding: 30px 40px;
+    margin: 25px;
+    cursor: pointer;
+    border: 2px solid cornsilk;
+    border-radius: 15%;
+
+}
+
+button img {
+    width: 250px;
+    height: 250px;
+    display: block;
+}
+
+#reset-btn {
+    border: 2px solid green;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+h1 {
+    color: green;
+}
