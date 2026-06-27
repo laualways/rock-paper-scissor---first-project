@@ -71,6 +71,8 @@ const message = document.querySelector("#message");
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
+        if (button.id === "reset-btn") return;
+
         let humanChoice = button.value.toUpperCase();
         let computerChoice = getComputerChoice();
 
@@ -80,10 +82,30 @@ buttons.forEach((button) => {
 
         if (humanScore === 5) {
             message.textContent = "You win!";
-            buttons.forEach((btn) => btn.disabled = true);
+            buttons.forEach((btn) => {
+                if (btn.id !== "reset-btn") btn.disabled = true;
+            });
         } else if (computerScore === 5) {
             message.textContent = "You lost!";
-            buttons.forEach((btn) => btn.disabled = true);
+            buttons.forEach((btn) => {
+                if (btn.id !== "reset-btn") btn.disabled = true;
+            });
         }
     });
+});
+
+let btnReset = document.getElementById("reset-btn");
+
+function resetGame() {
+    humanScore = 0;
+    computerScore = 0;
+    scoreDiv.textContent = `Human: ${humanScore} - Computer: ${computerScore}`; 
+    message.textContent = "";
+    buttons.forEach((button) => {
+        button.disabled = false;
+    });
+}
+
+btnReset.addEventListener("click", () => {
+    resetGame();
 });
